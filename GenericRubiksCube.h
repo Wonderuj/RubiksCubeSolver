@@ -8,7 +8,7 @@
 #include "bits/stdc++.h"
 using namespace std;
 
-/**
+/*
  * A base class for all Rubik's Cube Model. There are various representation for Rubik's Cube.
  * Each one has it's own special ways of definitions. This class provides a shared functionality
  * between all models.
@@ -38,7 +38,7 @@ public:
         YELLOW
     };
 
-    enum class MOVE {
+    enum class MOVE {  //18 moves are set..
         L, LPRIME, L2,
         R, RPRIME, R2,
         U, UPRIME, U2,
@@ -47,25 +47,25 @@ public:
         B, BPRIME, B2
     };
 
-    /*
+    /* getColor function:
      * Returns the color of the cell at (row, col) in face.
-     * If Rubik's Cube face is pointing at you, then the row numbering starts from the
-     * top to bottom, and column numbering starts from the left to right.
-     * The rows and columns are 0-indexed.
+     * The rows and columns are 0-indexed. (represented below)
      * @param Face, row, and column index
      */
     virtual COLOR getColor(FACE face, unsigned row, unsigned col) const = 0;
 
-    /*
+
+    /* getColorLetter:
      * Returns the first letter of the given COLOR
      * Eg: For COLOR::GREEN, it returns 'G'
      */
     static char getColorLetter(COLOR color);
 
     /*
-      Returns true if the Rubik Cube is solved, otherwise returns false.
+      Returns true if the Rubik's Cube is solved, otherwise returns false.
      */
     virtual bool isSolved() const = 0;
+
 
     /*
      * Returns the move in the string format.
@@ -99,8 +99,9 @@ public:
      *          Y Y Y
      *
      * Row and Column Numberings:
-     * rx -> row numbering
-     * cx -> column numbering
+     *
+     * rx -> row numbering (top to bottom)
+     * cx -> column numbering (left to right)
      * bx -> both row and column numbering
      *
      *             b0 c1 c2
@@ -180,13 +181,30 @@ public:
 
     virtual RubiksCube &b2() = 0;
 
+    /*
+     * Corner Notation Functions:
+     * getCornerColorString: Get the color string for a corner piece.
+     * getCornerIndex: Get the index of a corner piece.
+     * getCornerOrientation: Get the orientation of a corner piece.
+     */
+
     string getCornerColorString(uint8_t ind) const;
 
     uint8_t getCornerIndex(uint8_t ind) const;
+    /* Return these values accordingly
+     * 0 -> WRB
+     * 1 -> WRG
+     * 2 -> WOB
+     * 3 -> WOG
+     *
+     * 4 -> YRB
+     * 5 -> YRG
+     * 6 -> YOB
+     * 7 -> YOG
+     */
 
     uint8_t getCornerOrientation(uint8_t ind) const;
 };
-
 
 
 

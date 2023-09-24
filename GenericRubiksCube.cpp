@@ -1,12 +1,13 @@
 //
-// Created by HP on 24-09-2023.
+// Created by Uddhav on 24-09-2023.
 //
 
 #include "GenericRubiksCube.h"
+
+
 //
 //Given a color return it's first letter
 //
-
 char RubiksCube::getColorLetter(COLOR color) {
     switch (color) {
         case COLOR::BLUE:
@@ -158,9 +159,11 @@ RubiksCube &RubiksCube::invert(MOVE ind) {
 
 void RubiksCube::print() const {
     cout << "Rubik's Cube:\n\n";
+// Loop through each row of a face and print the colors of the cells
 
+    //UP
     for (int row = 0; row <= 2; row++) {
-        for (unsigned i = 0; i < 7; i++) cout << " ";
+        for (unsigned i = 0; i < 7; i++) cout << " "; //to add spacing at start for representation
         for (int col = 0; col <= 2; col++) {
             cout << getColorLetter(getColor(FACE::UP, row, col)) << " ";
         }
@@ -169,6 +172,7 @@ void RubiksCube::print() const {
 
     cout << "\n";
 
+    //Left, front, right, back
     for (int row = 0; row <= 2; row++) {
 
         for (int col = 0; col <= 2; col++) {
@@ -194,6 +198,7 @@ void RubiksCube::print() const {
 
     cout << "\n";
 
+    //Down
     for (int row = 0; row <= 2; row++) {
         for (unsigned i = 0; i < 7; i++) cout << " ";
         for (int col = 0; col <= 2; col++) {
@@ -204,23 +209,32 @@ void RubiksCube::print() const {
     cout << "\n";
 }
 
+//Shuffling the cube -> Function returns vector of moves performed
 vector<RubiksCube::MOVE> RubiksCube::randomShuffleCube(unsigned int times) {
     vector<MOVE> moves_performed;
     srand(time(0));
     for (unsigned int i = 0; i < times; i++) {
-        unsigned int selectMove = (rand() % 18);
-        moves_performed.push_back(static_cast<MOVE>(selectMove));
-        this->move(static_cast<MOVE>(selectMove));
+        unsigned int selectMove = (rand() % 18); //generates and stores a random number between 0 and 17
+        // selectMove represent one of the 18 possible Rubik's Cube moves.
+        moves_performed.push_back(static_cast<MOVE>(selectMove)); //converting int to MOVE and storing
+        this->move(static_cast<MOVE>(selectMove)); //performs the move on the Rubik's Cube.
     }
     return moves_performed;
 }
+/*
+ * selectMove = 0: Represents RubiksCube::MOVE::L
+ * selectMove = 1: Represents RubiksCube::MOVE::LPRIME
+ * selectMove = 2: Represents RubiksCube::MOVE::L2
+ * ....and so on
+ */
+
 
 //Helper function returns string of corner
 string RubiksCube::getCornerColorString(uint8_t ind) const {
     string str = "";
 
     switch (ind) {
-//        UFR
+//            UFR
         case 0:
             str += getColorLetter(getColor(FACE::UP, 2, 2));
             str += getColorLetter(getColor(FACE::FRONT, 0, 2));
@@ -280,7 +294,7 @@ string RubiksCube::getCornerColorString(uint8_t ind) const {
 }
 
 uint8_t RubiksCube::getCornerIndex(uint8_t ind) const {
-    string corner = getCornerColorString(ind);
+    string corner = getCornerColorString(ind); //retrieve the color string of the corner piece
 
     uint8_t ret = 0;
     for (auto c: corner) {
