@@ -149,10 +149,10 @@ int main() {
 
 string fileName= "D:\\UJ code\\Rubiks\\Database\\cornerDepth5V1.txt";
     //    Code to create Corner Database
-    cout<<"here1"<<endl;
+//    cout<<"here1"<<endl;
 //    CornerDBMaker dbMaker(fileName, 0x99);
 //    dbMaker.bfsAndStore();
-    cout<<"here2\n";
+//    cout<<"here2\n";
 
     RubiksCubeBitboard cube;
     auto shuffleMoves = cube.randomShuffleCube(14);
